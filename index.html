@@ -1,0 +1,61 @@
+<head></head>
+<body>
+	<h2>HELLO</h2>
+	<input id="practiseLetters" type=text placeholder='Add characters to practise here!' value='abcdefghijklmnopqrsstuvwxyz'></input>
+	<button id="start" onclick="handleStart()">Start</button>
+	<div id='letter'></div>
+	<div id='guess'></div>
+</body>
+
+<script>
+	var currentLetter
+	var currentGuess
+
+	function handleStart() {
+		var start = document.getElementById('start')
+		var letter = document.getElementById('letter')
+		
+		start.disabled = true
+		setNextLetter()
+		
+		document.onkeypress = function (e) {
+			e.preventDefault()
+
+			var guessLetter = document.getElementById('guess')
+			guessLetter.innerHTML = e.key
+			currentGuess = e.key
+			
+			if (currentGuess === currentLetter) {
+				setNextLetter()
+			}
+		}
+	}
+
+	function setNextLetter() {
+		var practiseLetters = document.getElementById('practiseLetters').value
+		var practiceLetter = randomLetter(practiseLetters)
+		var guessLetter = document.getElementById('guess')
+		
+		currentLetter = practiceLetter
+		letter.innerHTML = practiceLetter
+		guessLetter.innerHTML = ''
+	}
+
+	function randomLetter(letters) {
+		return letters[Math.floor(Math.random() * letters.length)]
+	}
+</script>
+
+<style>
+input {
+	width: 25%
+}
+
+#letter {
+	font-size: 20em;
+}
+
+#guess {
+	font-size: 20em;
+}
+</style>
